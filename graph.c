@@ -3,9 +3,9 @@
 #include<stdlib.h>
 #include"bintree.h"
 
-void bst_print_dot_null(file key, int nullcount, FILE* stream){
+void bst_print_dot_null(TYPE key, int nullcount, FILE* stream){
     fprintf(stream, "    null%d [shape=point];\n", nullcount);
-    fprintf(stream, "    %s -- null%d;\n", key.name, nullcount);
+    fprintf(stream, "    %d -- null%d;\n", key, nullcount);
 }
 
 void bst_print_dot_aux(node* node, FILE* stream){
@@ -13,31 +13,31 @@ void bst_print_dot_aux(node* node, FILE* stream){
     static int nullcount = 0;
 
     if(node->left){
-        fprintf(stream, "    %s -- %s;\n", node->key.name, node->left->key.name);
+        fprintf(stream, "    %d -> %d;\n", node->key, node->left->key);
         bst_print_dot_aux(node->left, stream);
     }
     else{
-        bst_print_dot_null(node->key, nullcount++, stream);
+        //bst_print_dot_null(node->key, nullcount++, stream);
     }
     if(node->right){
-        fprintf(stream, "    %s -- %s;\n", node->key.name, node->right->key.name);
+        fprintf(stream, "    %d -> %d;\n", node->key, node->right->key);
         bst_print_dot_aux(node->right, stream);
     }
     else{
-        bst_print_dot_null(node->key, nullcount++, stream);
+        //bst_print_dot_null(node->key, nullcount++, stream);
     }
 }
 
 void bst_print_dot(node* tree, FILE* stream){
 
-    fprintf(stream, "graph BST {\n");
+    fprintf(stream, "digraph BST {\n");
     fprintf(stream, "    node [fontname=\"Arial\"];\n");
 
     if(!tree){
         fprintf(stream, "\n");
     }
     else if(!tree->right && !tree->left){
-        fprintf(stream, "    %s;\n", tree->key.name);
+        fprintf(stream, "    %d;\n", tree->key);
     }
     else{
         bst_print_dot_aux(tree, stream);

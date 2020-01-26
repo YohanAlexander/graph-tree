@@ -1,25 +1,20 @@
 #ifndef BINTREE_H
 #define BINTREE_H
 
-typedef struct file file;
 typedef struct node node;
-
-struct file{
-    char name[51];
-    char rw[2];
-    int size;
-};
+typedef int TYPE;
 
 struct node{
-    node *left, *right;
-    file key;
+    node *left, *right, *father;
+    TYPE key;
 };
 
-node* search(node* root, file* file);
-void copy(node* root, file* file);
-void insert_left(node* root, file* file);
-void insert_right(node* root, file* file);
-void insert(node* root, file* file);
+node* init(TYPE data);
+int search(node* root, TYPE data);
+int insert_left(node* root, TYPE data);
+int insert_right(node* root, TYPE data);
+int insert(node* root, TYPE data);
+int removet(node* root, TYPE data);
 void order(node* root);
 void pre_order(node* root);
 void pos_order(node* root);

@@ -3,73 +3,213 @@
 #include<string.h>
 #include"bintree.h"
 
-node* search(node* root, file* file){
+node* left(node* root){
 
-    int32_t cmp = strcmp(file->name, root->key.name);
+    node* aux = root;
 
-    if(cmp < 0 && root->left != NULL){
-        return search(root->left, file);
-    }
-
-    if(cmp > 0 && root->right != NULL){
-        return search(root->right, file);
+    if(aux->left != NULL){
+        aux = aux->left;
+        return aux;
     }
 
     else{
-        return root;
+        return NULL;
     }
 
 };
 
-void copy(node* root, file* file){
+node* right(node* root){
 
-    strcpy(root->key.name, file->name);
-    strcpy(root->key.rw, file->rw);
-    root->key.size = file->size;
+    node* aux = root;
 
-};
+    if(aux->right != NULL){
+        aux = aux->right;
+        return aux;
+    }
 
-void insert_left(node* root, file* file){
-
-    node* new = malloc(sizeof(node));
-    new->left = NULL;
-    new->right = NULL;
-    root->left = new;
-    copy(root->left, file);
+    else{
+        return NULL;
+    }
 
 };
 
-void insert_right(node* root, file* file){
+node* father(node* root){
 
-    node* new = malloc(sizeof(node));
-    new->left = NULL;
-    new->right = NULL;
-    root->right = new;
-    copy(root->right, file);
+    node* aux = root;
+
+    if(aux->father != NULL){
+        aux = aux->father;
+        return aux;
+    }
+
+    else{
+        return NULL;
+    }
 
 };
 
-void insert(node* root, file* file){
+node* init(TYPE data){
 
     node* new = malloc(sizeof(node));
-    new->left = NULL;
-    new->right = NULL;
 
-    node* no = search(root, file);
+    if(new == NULL){
+        return NULL;
+    }
 
-    if(strcmp(file->name, no->key.name) == 0){
-            if(strcmp(no->key.rw, "rw") == 0){
-                copy(no, file);
+    else{
+        new->key = data;
+        new->left = NULL;
+        new->right = NULL;
+        new->father = NULL;
+        return new;
+    }
+
+};
+
+int search(node* root, TYPE data){
+
+    if(root->key == data){
+        return 1;
+    }
+
+    else{
+
+        if(data > root->key){
+            root = right(root);
+        }
+
+        else{
+            root = left(root);
+        }
+
+        if(root == NULL){
+            return 0;
+        }
+
+        search(root, data);
+
+    }
+
+};
+
+int insert_left(node* root, TYPE data){
+
+    node* new = init(data);
+
+    if(root->left == NULL){
+        root->left = new;
+        root->left->father = root;
+        return 1;
+    }
+
+    else{
+        return 0;
+    }
+
+};
+
+int insert_right(node* root, TYPE data){
+
+    node* new = init(data);
+
+    if(root->right == NULL){
+        root->right = new;
+        root->right->father = root;
+        return 1;
+    }
+
+    else{
+        return 0;
+    }
+
+};
+
+int insert(node* root, TYPE data){
+
+    if(root->key == data){
+        return 0;
+    }
+
+    else{
+
+        if(data > root->key){
+
+            if(right(root) != NULL){
+                root = right(root);
+                insert(root, data);
+            }
+
+            else{
+                insert_right(root, data);
+                return 1;
             }
         }
 
-    if(strcmp(file->name, no->key.name) < 0){
-            insert_left(no, file);
+        else{
+
+            if(left(root) != NULL){
+                root = left(root);
+                insert(root, data);
+            }
+
+            else{
+                insert_left(root, data);
+                return 1;
+            }
+
         }
 
-    if(strcmp(file->name, no->key.name) > 0){
-            insert_right(no, file);
-        }
+    }
+
+};
+
+int removet(node* root, TYPE data){
+
+	node* father = root;
+
+	while(root != NULL && root->key != data){
+		father = root;
+		if (data > root->key) root = right(root);
+		else root = left(root);
+	}
+
+	if(root != NULL){
+
+		// Se tiver duas subárvores.
+		if(left(root) != NULL && right(root) != NULL){
+			node* aux = root;
+			father = root;
+			root = left(root);
+			while(left(root) != NULL){
+				father = root;
+				root = left(root);
+			}
+			aux->key = root->key;
+		}
+
+		//É importante que esse próximo if não seja um "else if".
+
+        //Se tiver uma subárvore à esquerda.
+		if(left(root) == NULL && right(root) != NULL){
+			if(father->left == root) father->left = right(root);
+			else father->right = right(root);
+		}
+
+		//Se tiver uma subárvore à direita.
+		else if(left(root) != NULL && right(root) == NULL){
+			if(father->left == root) father->left = left(root);
+			else father->right = left(root);
+		}
+
+		//Se for uma folha.
+		else if(left(root) == NULL && right(root) == NULL){
+			if(father->left == root) father->left = NULL;
+			else father->right = NULL;
+		}
+
+		free(root);
+
+    }
 
 };
 
@@ -77,11 +217,7 @@ void order(node* root){
 
     if(root != NULL){
         order(root->left);
-        printf("%s %s %d ", root->key.name, root->key.rw, root->key.size);
-        if(root->key.size == 1)
-            printf("byte\n");
-        else
-            printf("bytes\n");
+        printf("%d\n", root->key);
         order(root->right);
     }
 
@@ -90,11 +226,7 @@ void order(node* root){
 void pre_order(node* root){
 
     if(root != NULL){
-        printf("%s %s %d ", root->key.name, root->key.rw, root->key.size);
-        if(root->key.size == 1)
-            printf("byte\n");
-        else
-            printf("bytes\n");
+        printf("%d\n", root->key);
         pre_order(root->left);
         pre_order(root->right);
     }
@@ -106,11 +238,7 @@ void pos_order(node* root){
     if(root != NULL){
         pos_order(root->left);
         pos_order(root->right);
-        printf("%s %s %d ", root->key.name, root->key.rw, root->key.size);
-        if(root->key.size == 1)
-            printf("byte\n");
-        else
-            printf("bytes\n");
+        printf("%d\n", root->key);
     }
 
 };
