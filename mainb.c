@@ -10,13 +10,14 @@ int main(void){
     node* tree = malloc(sizeof(node));
     int menu, valor;
 
+    printf("###### Graph-Tree-Visualizer ######\n\n");
     printf("1 -> Inserir valor\n"); //Insere novo numero
     printf("2 -> Buscar valor\n");
     printf("3 -> Remover valor\n");
     printf("4 -> Imprimir ordem\n");
-    printf("5 -> Imprimir pos-ordem\n");
-    printf("6 -> Imprimir pre-ordem\n");
-    printf("7 -> Imprimir arvore\n"); //imprime na tela no formato de arvore
+    printf("5 -> Imprimir pós-ordem\n");
+    printf("6 -> Imprimir pré-ordem\n");
+    printf("7 -> Imprimir árvore\n"); //imprime na tela no formato de arvore
     printf("0 -> Finalizar o programa\n\n");
 
     do{
@@ -37,9 +38,9 @@ int main(void){
             printf("Busque um valor: ");
             scanf("%d", &valor);
             if(search(tree, valor))
-                printf("Esta na arvore\n");
+                printf("Está na árvore\n");
             else
-                printf("Nao tem na arvore\n");
+                printf("Não tem na árvore\n");
             fflush(stdin);
             break;
 
@@ -67,11 +68,12 @@ int main(void){
 
             case 7:
             bst_print_dot(tree, graph);
+            printf("Para visualizar a árvore feche o programa\n")
             fflush(stdin);
             break;
 
             default:
-            printf("Valor invalido!\n");
+            printf("Valor inválido!\n");
 
         }
 
