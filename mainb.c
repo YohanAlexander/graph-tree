@@ -68,7 +68,7 @@ int main(void){
 
             case 7:
             bst_print_dot(tree, graph);
-            printf("Para visualizar a árvore feche o programa\n")
+            printf("Para visualizar a árvore feche o programa\n");
             fflush(stdin);
             break;
 
