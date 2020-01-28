@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
-#include"bintree.h"
+#include"bst.h"
 
 void bst_print_dot_null(TYPE key, int nullcount, FILE* stream){
     fprintf(stream, "    null%d [shape=point];\n", nullcount);

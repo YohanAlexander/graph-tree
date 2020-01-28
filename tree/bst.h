@@ -1,5 +1,5 @@
-#ifndef BINTREE_H
-#define BINTREE_H
+#ifndef BST_H
+#define BST_H
 
 typedef struct node node;
 typedef int TYPE;

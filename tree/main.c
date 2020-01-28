@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
-#include"bintree.h"
+#include"bst.h"
 #include"graph.h"
 
 int main(void){
