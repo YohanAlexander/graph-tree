@@ -6,8 +6,16 @@ typedef int TYPE;
 
 struct heap{
     TYPE key[101];
+    int size;
 };
 
-void heapfy(void);
+int largest(int i);
+int left(int i);
+int right(int i);
+void swap(int *a, int *b);
+void heapify(heap* queue, int i);
+void insert(heap* queue, int newNum);
+void deleteRoot(heap* queue, int num);
+void printArray(heap* queue);
 
 #endif

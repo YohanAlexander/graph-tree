@@ -1,5 +1,5 @@
-bst: main.o bst.o graph.o
-	gcc -Wall -o3 main.o bst.o graph.o -o bst
+main: main.o bst.o graph.o
+	gcc -Wall -o3 main.o bst.o graph.o -o main
 
 main.o: main.c
 	gcc -c main.c
@@ -14,4 +14,7 @@ dot: bst.dot
 	dot -Tpng bst.dot -o bst.png
 
 clean:
-	rm *.o bst
+	rm *.o main
+
+bst:
+	rm bst.dot bst.png

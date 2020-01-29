@@ -168,23 +168,33 @@ int removet(node* root, TYPE data){
 	node* father = root;
 
 	while(root != NULL && root->key != data){
-		father = root;
-		if (data > root->key) root = right(root);
-		else root = left(root);
-	}
+
+    father = root;
+
+        if(data > root->key)
+            root = right(root);
+
+        else
+            root = left(root);
+
+    }
 
 	if(root != NULL){
 
 		// Se tiver duas subárvores.
 		if(left(root) != NULL && right(root) != NULL){
+
 			node* aux = root;
 			father = root;
 			root = left(root);
-			while(left(root) != NULL){
+
+            while(left(root) != NULL){
 				father = root;
 				root = left(root);
 			}
+
 			aux->key = root->key;
+
 		}
 
 		//É importante que esse próximo if não seja um "else if".
