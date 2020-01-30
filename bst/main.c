@@ -17,9 +17,9 @@ void menu(void){
 
 int main(void){
 
-    FILE* graph = fopen("bst.dot", "w+");
+    FILE* graph = fopen("bst.dot", "w");
     node* tree = malloc(sizeof(node));
-    int caso, valor;
+    int caso, valor, size = 1;
 
     menu();
 
@@ -33,10 +33,18 @@ int main(void){
             case 1:
             printf("Insira um valor: ");
             scanf("%d", &valor);
-            if(insert(tree, valor))
+            if(size == 1){
+                tree->key = valor;
+                size++;
                 printf("Inserido com sucesso\n");
-            else
+            }
+            else if(insert(tree, valor)){
+                size++;
+                printf("Inserido com sucesso\n");
+            }
+            else{
                 printf("Já está na árvore\n");
+            }
             fflush(stdin);
             menu();
             break;
@@ -44,10 +52,15 @@ int main(void){
             case 2:
             printf("Busque um valor: ");
             scanf("%d", &valor);
-            if(search(tree, valor))
+            if(size == 1){
+                printf("Árvore vazia\n");
+            }
+            else if(search(tree, valor)){
                 printf("Está na árvore\n");
-            else
+            }
+            else{
                 printf("Não tem na árvore\n");
+            }
             fflush(stdin);
             menu();
             break;
@@ -55,15 +68,23 @@ int main(void){
             case 3:
             printf("Remova um valor: ");
             scanf("%d", &valor);
-            if(removet(tree, valor))
+            if(size == 1){
+                printf("Árvore vazia\n");
+            }
+            if(removet(tree, valor)){
+                size--;
                 printf("Removido com sucesso\n");
-            else
+            }
+            else{
+                printf("Erro na remoção\n");
+            }
             menu();
             fflush(stdin);
             break;
 
             case 4:
             bst_print_dot(tree, graph);
+            in_order(tree);
             printf("Para visualizar a árvore use make dot\n");
             fflush(stdin);
             menu();
@@ -79,6 +100,7 @@ int main(void){
     while(caso != 0);
 
     fclose(graph);
+
     return 0;
 
 }

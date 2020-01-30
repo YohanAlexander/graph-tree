@@ -4,15 +4,31 @@
 #include"heap.h"
 
 int largest(int i){
-    return i;
+  return i;
 };
 
 int left(int i){
-    return 2 * i + 1;
+  return 2 * i + 1;
 };
 
 int right(int i){
-    return 2 * i + 2;
+  return 2 * i + 2;
+};
+
+int search(heap* queue, int num){
+
+  for(int i = 0; i < queue->size; i++){
+
+    if(queue->key[i] == num){
+      return 1;
+    }
+
+    else{
+      return 0;
+    }
+
+  }
+
 };
 
 void swap(int *a, int *b){
@@ -51,6 +67,10 @@ void heapify(heap* queue, int i){
 }
 
 void insert(heap* queue, int newNum){
+
+  if(search(queue, newNum)){
+    return;
+  }
 
   if(queue->size == 0){
     queue->key[0] = newNum;

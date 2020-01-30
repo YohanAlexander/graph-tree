@@ -9,14 +9,15 @@ void menu(void){
     printf("\n###### Heap-Visualizer ######\n\n");
     printf("1 -> Inserir valor na fila\n"); //Insere novo numero
     printf("2 -> Desenfileirar valor\n");
-    printf("3 -> Imprimir heap\n"); //imprime no formato de arvore
+    printf("3 -> Buscar valor\n");
+    printf("4 -> Imprimir heap\n"); //imprime no formato de arvore
     printf("0 -> Finalizar o programa\n\n");
 
 }
 
 int main(void){
 
-    FILE* graph = fopen("heap.dot", "w+");
+    FILE* graph = fopen("heap.dot", "w");
     heap* queue = malloc(sizeof(queue));
     int caso, valor;
 
@@ -39,14 +40,27 @@ int main(void){
             break;
 
             case 2:
-            deleteRoot(queue, valor);
+            deleteRoot(queue, 1);
             printf("Raiz removida com sucesso\n");
-            menu();
             fflush(stdin);
+            menu();
             break;
 
             case 3:
-            //bst_print_dot(queue, graph);
+            printf("Buscar um valor: ");
+            scanf("%d", &valor);
+            if(search(queue, valor)){
+                printf("Tem no heap\n");
+            }
+            else{
+                printf("Não tem no heap\n");
+            }
+            fflush(stdin);
+            menu();
+            break;
+
+            case 4:
+            bst_print_dot(queue, graph);
             printArray(queue);
             printf("Para visualizar o heap use make dot\n");
             fflush(stdin);

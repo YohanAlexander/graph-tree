@@ -2,46 +2,43 @@
 #include<string.h>
 #include<stdlib.h>
 #include"heap.h"
-/*
-void bst_print_dot_null(TYPE key, int nullcount, FILE* stream){
-    fprintf(stream, "    null%d [shape=point];\n", nullcount);
-    fprintf(stream, "    %d -- null%d;\n", key, nullcount);
+
+void bst_print_dot_aux(heap* heap, FILE* stream){
+
+    for(int i = 0; i < heap->size - 1; i++){
+
+        int l = left(i);
+        int r = right(i);
+
+        if(l < heap->size){
+            fprintf(stream, "    %d -> %d;\n", heap->key[i], heap->key[l]);
+        }
+
+        if(r < heap->size){
+            fprintf(stream, "    %d -> %d;\n", heap->key[i], heap->key[r]);
+        }
+
+    }
+
 }
 
-void bst_print_dot_aux(node* node, FILE* stream){
+void bst_print_dot(heap* heap, FILE* stream){
 
-    static int nullcount = 0;
-
-    if(node->left){
-        fprintf(stream, "    %d -> %d;\n", node->key, node->left->key);
-        bst_print_dot_aux(node->left, stream);
-    }
-    else{
-        //bst_print_dot_null(node->key, nullcount++, stream);
-    }
-    if(node->right){
-        fprintf(stream, "    %d -> %d;\n", node->key, node->right->key);
-        bst_print_dot_aux(node->right, stream);
-    }
-    else{
-        //bst_print_dot_null(node->key, nullcount++, stream);
-    }
-}
-
-void bst_print_dot(node* tree, FILE* stream){
-
-    fprintf(stream, "digraph BST {\n");
+    fprintf(stream, "digraph HEAP {\n");
     fprintf(stream, "    node [fontname=\"Arial\"];\n");
 
-    if(!tree){
+    if(heap->size == 0){
         fprintf(stream, "\n");
     }
-    else if(!tree->right && !tree->left){
-        fprintf(stream, "    %d;\n", tree->key);
+
+    else if(heap->size == 1){
+        fprintf(stream, "    %d;\n", heap->key[0]);
     }
+
     else{
-        bst_print_dot_aux(tree, stream);
+        bst_print_dot_aux(heap, stream);
     }
+
     fprintf(stream, "}\n");
+
 }
-*/

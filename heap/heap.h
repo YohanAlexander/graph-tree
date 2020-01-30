@@ -12,6 +12,7 @@ struct heap{
 int largest(int i);
 int left(int i);
 int right(int i);
+int search(heap* queue, int num);
 void swap(int *a, int *b);
 void heapify(heap* queue, int i);
 void insert(heap* queue, int newNum);

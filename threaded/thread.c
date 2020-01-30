@@ -1,8 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include"bst.h"
+#include"thread.h"
 
+//retorna o no mais a esquerda
 node* left(node* root){
 
     node* aux = root;
@@ -18,6 +19,7 @@ node* left(node* root){
 
 };
 
+//retorna o no mais a direita
 node* right(node* root){
 
     node* aux = root;
@@ -33,21 +35,7 @@ node* right(node* root){
 
 };
 
-node* father(node* root){
-
-    node* aux = root;
-
-    if(aux->father != NULL){
-        aux = aux->father;
-        return aux;
-    }
-
-    else{
-        return NULL;
-    }
-
-};
-
+//aloca um novo no
 node* init(TYPE data){
 
     node* new = malloc(sizeof(node));
@@ -60,12 +48,31 @@ node* init(TYPE data){
         new->key = data;
         new->left = NULL;
         new->right = NULL;
-        new->father = NULL;
         return new;
     }
 
 };
 
+//acha o elemento sucessor
+node* sucessor(node* root){
+
+    if(root->right != NULL){
+       node* aux1 = left(root->right);
+       return aux1;
+    }
+
+    node* aux2 = root->father;
+
+    while(root->father != NULL && root->father->right == root){
+       root = root->father;
+       aux2 = aux2->father;
+    }
+
+    return root;
+
+}
+
+//busca um elemento na árvore
 int search(node* root, TYPE data){
 
     if(root->key == data){
@@ -92,6 +99,7 @@ int search(node* root, TYPE data){
 
 };
 
+//insere na esquerda
 int insert_left(node* root, TYPE data){
 
     node* new = init(data);
@@ -108,6 +116,7 @@ int insert_left(node* root, TYPE data){
 
 };
 
+//insere na direita
 int insert_right(node* root, TYPE data){
 
     node* new = init(data);
@@ -124,6 +133,7 @@ int insert_right(node* root, TYPE data){
 
 };
 
+//insere na árvore
 int insert(node* root, TYPE data){
 
     if(root->key == data){
@@ -163,6 +173,7 @@ int insert(node* root, TYPE data){
 
 };
 
+//remove elemento da árvore
 int removet(node* root, TYPE data){
 
 	node* father = root;
@@ -223,12 +234,12 @@ int removet(node* root, TYPE data){
 
 };
 
-void order(node* root){
+void in_order(node* root){
 
     if(root != NULL){
-        order(root->left);
+        in_order(root->left);
         printf("%d\n", root->key);
-        order(root->right);
+        in_order(root->right);
     }
 
 };
