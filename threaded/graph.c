@@ -17,6 +17,8 @@ void bst_print_dot_aux(node* node, FILE* stream){
         bst_print_dot_aux(node->left, stream);
     }
     else{
+        fprintf(stream, "    %d -> %d [ style=dashed ];\n", node->key, predecessor(node)->key);
+
         //bst_print_dot_null(node->key, nullcount++, stream);
     }
     if(node->right){

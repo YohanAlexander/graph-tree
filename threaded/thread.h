@@ -12,6 +12,7 @@ struct node{
 node* init(TYPE data);
 node* left(node* root);
 node* right(node* root);
+node* predecessor(node* root);
 node* sucessor(node* root);
 int search(node* root, TYPE data);
 int insert(node* root, TYPE data);

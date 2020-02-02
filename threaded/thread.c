@@ -53,6 +53,25 @@ node* init(TYPE data){
 
 };
 
+//acha o elemento predecessor
+node* predecessor(node* root){
+
+    if(root->left!= NULL){
+       node* aux1 = right(root->left);
+       return aux1;
+    }
+
+    node* aux2 = root->father;
+
+    while(aux2 != NULL && aux2->left == root){
+       root = aux2;
+       aux2 = aux2->father;
+    }
+
+    return root;
+
+}
+
 //acha o elemento sucessor
 node* sucessor(node* root){
 
@@ -63,8 +82,8 @@ node* sucessor(node* root){
 
     node* aux2 = root->father;
 
-    while(root->father != NULL && root->father->right == root){
-       root = root->father;
+    while(aux2 != NULL && aux2->right == root){
+       root = aux2;
        aux2 = aux2->father;
     }
 

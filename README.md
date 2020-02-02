@@ -1,6 +1,20 @@
 
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/yohanalexander/graph-tree">
+    <img src="tree.png" alt="Logo" width="50%" height="50%">
+  </a>
+
+  <h1 align="center">Graph Tree</h1>
+
+  <p align="center">
+    Visualização gráfica de árvores!
+    <br />
+
+
 <!-- ABOUT THE PROJECT -->
-# Visualização gráfica de árvores
+## Sobre o projeto
 
 Implementação interativa em linha de comando de árvores binárias, árvores de busca, árvores com costura e árvores heap.
 
@@ -40,16 +54,14 @@ make dot
 ### Uso
 Utilize os gatilhos no terminal para modificar a árvore de forma interativa :
 ```sh
-###### Graph-Tree-Visualizer ######
+###### ThreadedTree-Visualizer ######
 
 1 -> Inserir valor
 2 -> Buscar valor
 3 -> Remover valor
-4 -> Imprimir ordem
-5 -> Imprimir pós-ordem
-6 -> Imprimir pré-ordem
-7 -> Imprimir árvore
+4 -> Imprimir árvore
 0 -> Finalizar o programa
 
->>> 
+>>>
 ```
+
