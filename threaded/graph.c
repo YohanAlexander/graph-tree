@@ -3,11 +3,13 @@
 #include<stdlib.h>
 #include"thread.h"
 
+// escreve os nos nulos no arquivo dot
 void bst_print_dot_null(TYPE key, int nullcount, FILE* stream){
     fprintf(stream, "    null%d [shape=point];\n", nullcount);
     fprintf(stream, "    %d -- null%d;\n", key, nullcount);
 }
 
+// escreve os nos auxiliares no arquivo dot
 void bst_print_dot_aux(node* node, FILE* stream){
 
     static int nullcount = 0;
@@ -31,6 +33,7 @@ void bst_print_dot_aux(node* node, FILE* stream){
     }
 }
 
+// escreve os nos no arquivo dot
 void bst_print_dot(node* tree, FILE* stream){
 
     fprintf(stream, "digraph BST {\n");

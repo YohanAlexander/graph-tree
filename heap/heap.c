@@ -3,26 +3,32 @@
 #include<stdlib.h>
 #include"heap.h"
 
+// retorna o maior no do vetor
 int largest(int i){
   return i;
 };
 
+// retorna o filho da esquerda no vetor
 int left(int i){
   return 2 * i + 1;
 };
 
+// retorna o filho da direita no vetor
 int right(int i){
   return 2 * i + 2;
 };
 
+// busca um elemento no heap
 int search(heap* queue, int num){
 
   for(int i = 0; i < queue->size; i++){
 
+    // retorna 1 se achar o elemento
     if(queue->key[i] == num){
       return 1;
     }
 
+    // retorna 0 se nao achar
     else{
       return 0;
     }
@@ -31,6 +37,7 @@ int search(heap* queue, int num){
 
 };
 
+// troca duas posicoes no vetor
 void swap(int *a, int *b){
 
   int temp = *b;
@@ -39,6 +46,7 @@ void swap(int *a, int *b){
 
 };
 
+// transforma arvore em heap maximo
 void heapify(heap* queue, int i){
 
   if(queue->size == 1){
@@ -51,12 +59,15 @@ void heapify(heap* queue, int i){
     int l = left(i);
     int r = right(i);
 
+    // se a chave maior for a da esquerda
     if(l < queue->size && queue->key[l] > queue->key[larger])
       larger = l;
 
+    // se a chave maior for a da direita
     if(r < queue->size && queue->key[r] > queue->key[larger])
       larger = r;
 
+    // se a chave maior for o no atual
     if(larger != i){
       swap(&queue->key[i], &queue->key[larger]);
       heapify(queue, larger);
@@ -66,17 +77,21 @@ void heapify(heap* queue, int i){
 
 }
 
+// insere elemento no heap
 void insert(heap* queue, int newNum){
 
+  // se for o primeiro elemento
   if(search(queue, newNum)){
     return;
   }
 
+  // se o heap estiver vazio
   if(queue->size == 0){
     queue->key[0] = newNum;
     queue->size += 1;
   }
 
+  // outros casos
   else{
 
     queue->key[queue->size] = newNum;
@@ -90,6 +105,7 @@ void insert(heap* queue, int newNum){
 
 }
 
+// remove a raiz do heap como fila de prioridade
 void deleteRoot(heap* queue, int num){
 
     int i;
@@ -109,6 +125,7 @@ void deleteRoot(heap* queue, int num){
 
 }
 
+// printa o heap no terminal
 void printArray(heap* queue){
 
     for(int i = 0; i < queue->size; ++i){

@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include"heap.h"
 
+// escreve no arquivo dot os nos auxiliares
 void bst_print_dot_aux(heap* heap, FILE* stream){
 
     for(int i = 0; i < heap->size - 1; i++){
@@ -22,6 +23,7 @@ void bst_print_dot_aux(heap* heap, FILE* stream){
 
 }
 
+// escreve os nos no arquivo dot
 void bst_print_dot(heap* heap, FILE* stream){
 
     fprintf(stream, "digraph HEAP {\n");

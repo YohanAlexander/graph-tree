@@ -3,7 +3,7 @@
 #include<string.h>
 #include"thread.h"
 
-//retorna o no mais a esquerda
+// retorna o no mais a esquerda
 node* left(node* root){
 
     node* aux = root;
@@ -19,7 +19,7 @@ node* left(node* root){
 
 };
 
-//retorna o no mais a direita
+// retorna o no mais a direita
 node* right(node* root){
 
     node* aux = root;
@@ -35,7 +35,7 @@ node* right(node* root){
 
 };
 
-//aloca um novo no
+// aloca um novo no
 node* init(TYPE data){
 
     node* new = malloc(sizeof(node));
@@ -53,7 +53,7 @@ node* init(TYPE data){
 
 };
 
-//acha o elemento predecessor
+// acha o elemento predecessor
 node* predecessor(node* root){
 
     if(root->left!= NULL){
@@ -72,7 +72,7 @@ node* predecessor(node* root){
 
 }
 
-//acha o elemento sucessor
+// acha o elemento sucessor
 node* sucessor(node* root){
 
     if(root->right != NULL){
@@ -91,7 +91,7 @@ node* sucessor(node* root){
 
 }
 
-//busca um elemento na árvore
+// busca um elemento na árvore
 int search(node* root, TYPE data){
 
     if(root->key == data){
@@ -118,7 +118,7 @@ int search(node* root, TYPE data){
 
 };
 
-//insere na esquerda
+// insere na esquerda
 int insert_left(node* root, TYPE data){
 
     node* new = init(data);
@@ -135,7 +135,7 @@ int insert_left(node* root, TYPE data){
 
 };
 
-//insere na direita
+// insere na direita
 int insert_right(node* root, TYPE data){
 
     node* new = init(data);
@@ -152,7 +152,7 @@ int insert_right(node* root, TYPE data){
 
 };
 
-//insere na árvore
+// insere na arvore
 int insert(node* root, TYPE data){
 
     if(root->key == data){
@@ -192,7 +192,7 @@ int insert(node* root, TYPE data){
 
 };
 
-//remove elemento da árvore
+// remove elemento da arvore
 int removet(node* root, TYPE data){
 
 	node* father = root;
@@ -211,7 +211,7 @@ int removet(node* root, TYPE data){
 
 	if(root != NULL){
 
-		// Se tiver duas subárvores.
+		// se tiver duas subarvores
 		if(left(root) != NULL && right(root) != NULL){
 
 			node* aux = root;
@@ -227,21 +227,19 @@ int removet(node* root, TYPE data){
 
 		}
 
-		//É importante que esse próximo if não seja um "else if".
-
-        //Se tiver uma subárvore à esquerda.
+        // se tiver uma subarvore a esquerda
 		if(left(root) == NULL && right(root) != NULL){
 			if(father->left == root) father->left = right(root);
 			else father->right = right(root);
 		}
 
-		//Se tiver uma subárvore à direita.
+		// se tiver uma subarvore a direita
 		else if(left(root) != NULL && right(root) == NULL){
 			if(father->left == root) father->left = left(root);
 			else father->right = left(root);
 		}
 
-		//Se for uma folha.
+		// se for uma folha
 		else if(left(root) == NULL && right(root) == NULL){
 			if(father->left == root) father->left = NULL;
 			else father->right = NULL;
@@ -253,6 +251,7 @@ int removet(node* root, TYPE data){
 
 };
 
+// imprime percurso em ordem
 void in_order(node* root){
 
     if(root != NULL){
@@ -263,6 +262,7 @@ void in_order(node* root){
 
 };
 
+// imprime percurso pre ordem
 void pre_order(node* root){
 
     if(root != NULL){
@@ -273,6 +273,7 @@ void pre_order(node* root){
 
 };
 
+// imprime percurso pos ordem
 void pos_order(node* root){
 
     if(root != NULL){
